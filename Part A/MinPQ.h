@@ -1,9 +1,11 @@
 #ifndef __MINPQ_H__
 #define __MINPQ_H__
+#include "Graph.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+
 
 struct MinPQ {
     int numberOfElements;

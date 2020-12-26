@@ -41,7 +41,7 @@ struct MinPQ* InitializePriorityQueue(struct Graph* graph)
 {
     struct MinPQ* queue = CreateMinPQ(graph -> numberOfVertices);
     int heapIndex;
-    for (int index = 0 ; index < queue -> numberOfElements ; index++)
+    for (int index = 0 ; index < graph -> numberOfVertices ; index++)
     {
         heapIndex = PQInsert(queue, graph, index + 1);
         graph -> adjacencyList[index].heapIndex = heapIndex;
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
     struct Graph* graph = FileToGraph(fileName);
     struct MinPQ* queue = InitializePriorityQueue(graph);
 
-    DestroyGraph(queue);
+    DestroyMinPQ(queue);
     queue = NULL;
     DestroyGraph(graph);
     graph = NULL;

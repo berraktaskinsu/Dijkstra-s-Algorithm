@@ -1,11 +1,11 @@
 CC = gcc
 CFLAGS = -g -Wall
-#LIBS = -lm
+LIBS = -lm
 
 default: A
 
 A: Main.o Graph.o MinPQ.o
-	$(CC) $(CFLAGS) -o A Main.o Graph.o MinPQ.o
+	$(CC) $(CFLAGS) -o A Main.o Graph.o MinPQ.o $(LIBS)
 
 Main.o: Main.c Graph.h MinPQ.h Helper.h
 	$(CC) $(CFLAGS) -c Main.c

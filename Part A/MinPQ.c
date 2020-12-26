@@ -19,7 +19,7 @@ int PQExtractMin(struct MinPQ* queue, struct Graph* graph)
         minVertexId = GetVertexOfHeapIndex(queue, 0);
         queue -> minHeap[0] = GetVertexOfHeapIndex(queue, numberOfElements - 1);
         queue -> numberOfElements --;
-        MinHeapify(queue, 0, graph);
+        MinHeapify(queue, graph, 0);
     }
     return minVertexId;   
 }
@@ -33,15 +33,15 @@ int PQInsert(struct MinPQ* queue, struct Graph* graph, int vertexId)
         const int key = GetKeyOfVertex(graph, vertexId);
 
         int index = queue -> numberOfElements - 1;
-        int parentIndex = ParentIndex(index);
-        int parentKey = GetKeyOfHeapIndex(graph, queue, parentIndex);
+        int parentIndex = Parent(index);
+        int parentKey = GetKeyOfHeapIndex(queue, graph, parentIndex);
 
         while (index > 0 && key > parentKey)
         {
             queue -> minHeap[index] = GetVertexOfHeapIndex(queue, parentIndex);
             index = parentIndex;
-            parentIndex = ParentIndex(index);
-            parentKey = GetKeyOfHeapIndex(graph, queue, parentIndex);
+            parentIndex = Parent(index);
+            parentKey = GetKeyOfHeapIndex(queue, graph, parentIndex);
         }
         queue -> minHeap[index] = vertexId;
     }
@@ -50,7 +50,7 @@ int PQInsert(struct MinPQ* queue, struct Graph* graph, int vertexId)
 
 bool PQDecreaseKey(struct MinPQ* queue, int index, int key)
 {
-
+    return true;
 }
 
 void DestroyMinPQ(struct MinPQ* queue)
@@ -66,15 +66,15 @@ void MinHeapify(struct MinPQ* queue, struct Graph* graph, int index)
     int numberOfElements = queue -> numberOfElements;
 
     int minHeapIndex = index;
-    int minKey = GetKeyOfHeapIndex(graph, queue, minHeapIndex);
+    int minKey = GetKeyOfHeapIndex(queue, graph, minHeapIndex);
 
-    int leftChildIndex = LeftChildIndex(index);
-    int rightChildIndex = RightChildIndex(index);
+    int leftChildIndex = LeftChild(index);
+    int rightChildIndex = RightChild(index);
     int leftChildKey, rightChildKey;
     
     if (leftChildIndex < numberOfElements)
     {
-        leftChildKey = GetKeyOfHeapIndex(graph, queue, leftChildIndex);
+        leftChildKey = GetKeyOfHeapIndex(queue, graph, leftChildIndex);
         if (leftChildKey < minKey)
         {
             minHeapIndex = leftChildIndex;
@@ -84,7 +84,7 @@ void MinHeapify(struct MinPQ* queue, struct Graph* graph, int index)
 
     if (rightChildIndex < numberOfElements)
     {
-        rightChildKey = GetKeyOfHeapIndex(graph, queue, rightChildIndex);
+        rightChildKey = GetKeyOfHeapIndex(queue, graph, rightChildIndex);
         if (rightChildKey < minKey)
         {
             minHeapIndex = rightChildIndex;
@@ -97,7 +97,7 @@ void MinHeapify(struct MinPQ* queue, struct Graph* graph, int index)
         int temp = GetVertexOfHeapIndex(queue, minHeapIndex);
         queue -> minHeap[minHeapIndex] = GetVertexOfHeapIndex(queue, index);
         queue -> minHeap[index] = temp;
-        MinHeapify(queue, minHeapIndex, graph);
+        MinHeapify(queue, graph, minHeapIndex);
     }
 }
 
