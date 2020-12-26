@@ -39,7 +39,15 @@ struct Graph* FileToGraph(const char* fileName)
 
 struct MinPQ* InitializePriorityQueue(struct Graph* graph)
 {
-    return CreateMinPQ(graph -> numberOfVertices);
+    struct MinPQ* queue = CreateMinPQ(graph -> numberOfVertices);
+    int heapIndex;
+    for (int index = 0 ; index < queue -> numberOfElements ; index++)
+    {
+        heapIndex = PQInsert(queue, graph, index + 1);
+        graph -> adjacencyList[index].heapIndex = heapIndex;
+    }
+    graph -> adjacencyList[queue -> minHeap[0] - 1].weight = IS_MIN ? 0 : 1;
+    return queue;
 }
 
 /**
@@ -60,8 +68,10 @@ int main(int argc, char* argv[])
     }
     const char* fileName = "medium.mtx";//argv[1];
     struct Graph* graph = FileToGraph(fileName);
-    //struct MinPQ* queue = InitializePriorityQueue(graph);
+    struct MinPQ* queue = InitializePriorityQueue(graph);
 
+    DestroyGraph(queue);
+    queue = NULL;
     DestroyGraph(graph);
     graph = NULL;
     printf("Hello File %s", fileName);

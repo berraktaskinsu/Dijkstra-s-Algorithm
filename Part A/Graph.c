@@ -21,14 +21,6 @@ struct Graph* CreateGraph(const int numberOfVertices)
         graph -> adjacencyList[index].list = NULL;
     }
     return graph;
-    /*struct Graph* graph = (struct Graph*) malloc(sizeof(struct Graph));
-    graph -> numberOfVertices = numberOfVertices;
-    graph -> adjacencyList = (struct GraphNode**) malloc(numberOfVertices * sizeof(struct GraphNode*));
-    for (int index = 0 ; index < numberOfVertices ; index++)
-    {
-        graph -> adjacencyList[index] = NULL;
-    }
-    return graph;*/
 }
 
 /**
@@ -48,16 +40,6 @@ void AddEdgeToGraph(struct Graph* graph, const int srcId, const int dstId, const
     graph -> adjacencyList[srcId - 1].list = listNode;
     if (SINGLE_STEPPING)
         printf("Src: %d Dst: %d Link Weight: %lf\n", srcId, dstId, linkWeight);
-
-    /*
-    struct GraphNode* newNode = (struct GraphNode*) malloc(sizeof(struct GraphNode));
-    newNode -> vertexId = dstId;
-    newNode -> weakness = weakness;
-    newNode -> next = graph -> adjacencyList[srcId - 1];
-    graph -> adjacencyList[srcId - 1] = newNode;
-    if (SINGLE_STEPPING)
-        printf("Vertex 1: %d Vertex 2: %d Distance: %lf\n", srcId, dstId, weakness);
-    */
 }
 
 /**
@@ -83,21 +65,6 @@ void DestroyGraph(struct Graph* graph)
     free(graph -> adjacencyList);
     graph -> adjacencyList = NULL;
     free(graph);
-    /*int numberOfVertices = graph -> numberOfVertices;
-    for (int index = 0 ; index < numberOfVertices ; index++)
-    {
-        struct GraphNode* nextNode = graph -> adjacencyList[index];
-        while(graph -> adjacencyList[index] != NULL)
-        {
-            nextNode = graph -> adjacencyList[index] -> next;
-            graph -> adjacencyList[index] -> next = NULL;
-            free(graph -> adjacencyList[index]);
-            graph -> adjacencyList[index] = nextNode;
-        }
-    }
-    free(graph -> adjacencyList);
-    graph -> adjacencyList = NULL;
-    free(graph);*/
 }
 
 

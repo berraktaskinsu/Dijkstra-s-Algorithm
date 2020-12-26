@@ -2,6 +2,8 @@
 #define __MINPQ_H__
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
 
 struct MinPQ {
     int numberOfElements;
@@ -11,10 +13,28 @@ struct MinPQ {
 
 struct MinPQ* CreateMinPQ(const int capacity);
 
-//void Insert(struct MinPQ* queue, struct Vertex* vertex);
+int PQExtractMin(struct MinPQ* queue, struct Graph* graph);
 
-//void DecreaseKey(struct MinPQ* queue, int index, double newKey);
+int PQInsert(struct MinPQ* queue, struct Graph* graph, int vertexId);
 
-//struct Vertex* ExtractMin(struct MinPQ* queue);
+bool PQDecreaseKey(struct MinPQ* queue, int index, int key);
+
+void DestroyMinPQ(struct MinPQ* queue);
+
+
+
+void MinHeapify(struct MinPQ* queue, struct Graph* graph, int index);
+
+int GetKeyOfVertex(struct Graph* graph, int vertexId);
+
+int GetVertexOfHeapIndex(struct MinPQ* queue, int heapIndex);
+
+int GetKeyOfHeapIndex(struct MinPQ* queue, struct Graph* graph, int heapIndex);
+
+int Parent(int index);
+
+int LeftChild(int index);
+
+int RightChild(int index);
 
 #endif
