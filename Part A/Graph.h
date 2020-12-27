@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <float.h>
 
 struct ListNode {
     int vertexId;
@@ -27,6 +28,8 @@ struct Graph {
 struct Graph* CreateGraph(const int numberOfVertices);
 
 void AddEdgeToGraph(struct Graph* graph, const int srcId, const int dstId, const double weakness);
+
+void PrintGraph(struct Graph* graph);
 
 void DestroyGraph(struct Graph* graph);
 // Private Methods:

@@ -17,26 +17,28 @@ struct MinPQ* CreateMinPQ(const int capacity);
 
 int PQExtractMin(struct MinPQ* queue, struct Graph* graph);
 
-int PQInsert(struct MinPQ* queue, struct Graph* graph, int vertexId);
+int PQInsert(struct MinPQ* queue, struct Graph* graph, const int vertexId);
 
-bool PQDecreaseKey(struct MinPQ* queue, int index, int key);
+int PQDecreaseKey(struct MinPQ* queue, struct Graph* graph, int index, const double key);
+
+void PrintMinPQ(struct MinPQ* queue);
 
 void DestroyMinPQ(struct MinPQ* queue);
 
 
 
-void MinHeapify(struct MinPQ* queue, struct Graph* graph, int index);
+void MinHeapify(struct MinPQ* queue, struct Graph* graph, const int index);
 
-int GetKeyOfVertex(struct Graph* graph, int vertexId);
+double GetKeyOfVertex(struct Graph* graph, const int vertexId);
 
-int GetVertexOfHeapIndex(struct MinPQ* queue, int heapIndex);
+int GetVertexOfHeapIndex(struct MinPQ* queue, const int heapIndex);
 
-int GetKeyOfHeapIndex(struct MinPQ* queue, struct Graph* graph, int heapIndex);
+double GetKeyOfHeapIndex(struct MinPQ* queue, struct Graph* graph, const int heapIndex);
 
-int Parent(int index);
+int Parent(const int index);
 
-int LeftChild(int index);
+int LeftChild(const int index);
 
-int RightChild(int index);
+int RightChild(const int index);
 
 #endif
