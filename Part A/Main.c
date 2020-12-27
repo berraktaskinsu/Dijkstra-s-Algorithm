@@ -60,7 +60,7 @@ struct MinPQ* InitializePriorityQueue(struct Graph* graph)
         if (heapIndex != -1)
         {
             graph -> adjacencyList[index].heapIndex = heapIndex;
-            PrintMinPQ(queue);
+            //PrintMinPQ(queue);
         }
         else 
         {
@@ -81,9 +81,9 @@ void FindMinimumWeaknessPath(struct Graph* graph, struct MinPQ* queue)
     while (queue -> numberOfElements > 0)
     {
         strongestVertex = PQExtractMin(queue, graph);
-        PrintMinPQ(queue);
-        PrintGraph(graph);
-        printf("VISITING VERTEX %d\n", strongestVertex);
+        //PrintMinPQ(queue);
+        //PrintGraph(graph);
+        //printf("VISITING VERTEX %d\n", strongestVertex);
         graph -> adjacencyList[strongestVertex - 1].heapIndex = -1;
         vertexWeakness = graph -> adjacencyList[strongestVertex - 1].weight;
         current = graph -> adjacencyList[strongestVertex - 1].list;
@@ -98,11 +98,11 @@ void FindMinimumWeaknessPath(struct Graph* graph, struct MinPQ* queue)
                 linkWeakness = current -> linkWeight;
                 neighbourWeakness = graph -> adjacencyList[neighbourGraphIndex].weight;
                 totalWeakness = vertexWeakness + linkWeakness;
-                printf("Total Weakness: %lf, Neighbour Weakness: %lf.\n", totalWeakness, neighbourWeakness);
+                //printf("Total Weakness: %lf, Neighbour Weakness: %lf.\n", totalWeakness, neighbourWeakness);
                 if (totalWeakness < neighbourWeakness)
                 {
                     neighbourHeapIndex = graph -> adjacencyList[neighbourGraphIndex].heapIndex;
-                    printf("NEIGHBOUR GRAPH INDEX: %d, NEIGHBOUR HEAP INDEX: %d\n", neighbourGraphIndex, neighbourHeapIndex);
+                    //printf("NEIGHBOUR GRAPH INDEX: %d, NEIGHBOUR HEAP INDEX: %d\n", neighbourGraphIndex, neighbourHeapIndex);
                     int returnValue = PQDecreaseKey(queue, graph, neighbourHeapIndex, totalWeakness);
                     if (returnValue == 0)
                         graph -> adjacencyList[neighbourGraphIndex].previousVertexId = strongestVertex;
@@ -178,14 +178,14 @@ int main(int argc, char* argv[])
     }
     const char* fileName = "test.mtx";//argv[1];
     struct Graph* graph = FileToGraph(fileName); // ! O(E)
-    PrintGraph(graph);
+    //PrintGraph(graph);
     struct MinPQ* queue = InitializePriorityQueue(graph); // ! O(VlgV)
-    PrintMinPQ(queue);
-    PrintGraph(graph);
+    //PrintMinPQ(queue);
+    //PrintGraph(graph);
     
     FindMinimumWeaknessPath(graph, queue);
-    PrintMinPQ(queue);
-    PrintGraph(graph);
+    //PrintMinPQ(queue);
+    //PrintGraph(graph);
 
     DestroyMinPQ(queue); // ! O(1)
     queue = NULL;
