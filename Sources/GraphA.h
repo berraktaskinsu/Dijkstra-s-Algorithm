@@ -1,5 +1,5 @@
-#ifndef __GRAPH_H__
-#define __GRAPH_H__
+#ifndef __GRAPHA_H__
+#define __GRAPHA_H__
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

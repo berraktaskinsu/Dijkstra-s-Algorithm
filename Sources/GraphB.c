@@ -1,5 +1,5 @@
-#include "Graph.h"
-#include "Helper.h"
+#include "GraphB.h"
+#include "HelperB.h"
 
 // Public Methods:
 /**
@@ -15,11 +15,16 @@ struct Graph* CreateGraph(const int numberOfVertices)
     graph -> adjacencyList = (struct GraphNode*) malloc(numberOfVertices * sizeof(struct GraphNode));
     for (int index = 0 ; index < numberOfVertices ; index++)
     {
-        graph -> adjacencyList[index].weight = IS_MIN ? INT_MAX : 0;
+        if (index == 0)
+            graph -> adjacencyList[index].weight = IS_MIN ? 0.0 : 1.0;
+        else
+            graph -> adjacencyList[index].weight = IS_MIN ? (double) INT_MAX : 0.0;
+        
         graph -> adjacencyList[index].heapIndex = -1;
         graph -> adjacencyList[index].previousVertexId = -1;
         graph -> adjacencyList[index].list = NULL;
     }
+
     return graph;
 }
 
@@ -38,9 +43,25 @@ void AddEdgeToGraph(struct Graph* graph, const int srcId, const int dstId, const
     listNode -> linkWeight = linkWeight;
     listNode -> next = graph -> adjacencyList[srcId - 1].list;
     graph -> adjacencyList[srcId - 1].list = listNode;
-    if (SINGLE_STEPPING)
-        printf("Src: %d Dst: %d Link Weight: %lf\n", srcId, dstId, linkWeight);
+    /*if (SINGLE_STEPPING)
+        printf("Src: %d Dst: %d Link Weight: %lf\n", srcId, dstId, linkWeight);*/
 }
+
+void PrintGraph(struct Graph* graph)
+{
+    printf("\nGraph - Number of Vertices: %d\n", graph -> numberOfVertices);
+    for (int index = 0 ; index < graph -> numberOfVertices ; index++)
+    {
+        printf("\nVertex %d, Weakness: %lf, Prev: %d, Heap Index: %d\n", index + 1, graph -> adjacencyList[index].weight, graph -> adjacencyList[index].previousVertexId, graph -> adjacencyList[index].heapIndex);
+        struct ListNode* current = graph -> adjacencyList[index].list;
+        while (current != NULL)
+        {
+            printf("%d -> %d Link Weakness: %lf\n", index + 1, current -> vertexId, current -> linkWeight);
+            current = current -> next;
+        }
+    }
+}
+
 
 /**
  * @brief Deallocate and Destroy a Graph Object

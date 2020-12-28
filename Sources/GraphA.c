@@ -1,5 +1,5 @@
-#include "Graph.h"
-#include "Helper.h"
+#include "GraphA.h"
+#include "HelperA.h"
 
 // Public Methods:
 /**
@@ -16,7 +16,7 @@ struct Graph* CreateGraph(const int numberOfVertices)
     for (int index = 0 ; index < numberOfVertices ; index++)
     {
         if (index == 0)
-            graph -> adjacencyList[index].weight = IS_MIN ? 0.0 : 1.0;
+            graph -> adjacencyList[index].weight = IS_MIN ? (double) 0.0 : 1.0;
         else
             graph -> adjacencyList[index].weight = IS_MIN ? (double) INT_MAX : 0.0;
         
